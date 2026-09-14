@@ -31,7 +31,7 @@ class DashboardController extends Controller
         // Check if onboarding steps are completed
         $smtpConfigured = (smtp_setting()->mail_driver == 'smtp' && smtp_setting()->verified) || smtp_setting()->mail_driver != 'smtp';
         $cronConfigured = global_setting()->hide_cron_job == 1;
-        $appNameChanged = global_setting()->name != 'TableTrack'; // Assuming 'TableTrack' is the default name
+        $appNameChanged = global_setting()->name != 'InQRRMS'; // Assuming 'InQRRMS' is the default name
 
         // If any of the onboarding steps are not completed OR URL has "public", redirect to the onboarding page
         if (($urlHasPublic || !$smtpConfigured || !$cronConfigured || !$appNameChanged) && !app()->environment('development')) {

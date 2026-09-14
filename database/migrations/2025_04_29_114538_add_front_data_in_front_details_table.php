@@ -33,7 +33,7 @@ return new class extends Migration
                 'faq_heading' => 'Your questions, answered',
                 'faq_description' => 'Answers to the most frequently asked questions.',
                 'contact_heading' => 'Contact',
-                'footer_copyright_text' => '© 2025 TableTrack. All Rights Reserved.',
+                'footer_copyright_text' => '© 2025 InQRRMS. All Rights Reserved.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -199,13 +199,13 @@ return new class extends Migration
                 ],
                 [
                     'language_setting_id' => $languageSetting->id,
-                    'question' => 'Can I manage multiple locations with TableTrack?',
-                    'answer' => 'Yes, TableTrack allows you to manage multiple restaurant locations from a single dashboard.',
+                    'question' => 'Can I manage multiple locations with InQRRMS?',
+                    'answer' => 'Yes, InQRRMS allows you to manage multiple restaurant locations from a single dashboard.',
                 ],
                 [
                     'language_setting_id' => $languageSetting->id,
-                    'question' => 'Does TableTrack support online payments?',
-                    'answer' => 'Absolutely. TableTrack integrates with leading payment gateways like Stripe and Razorpay for secure transactions.',
+                    'question' => 'Does InQRRMS support online payments?',
+                    'answer' => 'Absolutely. InQRRMS integrates with leading payment gateways like Stripe and Razorpay for secure transactions.',
                 ],
                 [
                     'language_setting_id' => $languageSetting->id,

@@ -13,7 +13,7 @@ class DesktopUniqueKeyMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $key = $request->header('X-TABLETRACK-KEY');
+        $key = $request->header('X-INQRRMS-KEY');
         $dev = app()->environment('development');
 
         if (!$key && !$dev) {

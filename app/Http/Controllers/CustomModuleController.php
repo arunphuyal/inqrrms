@@ -303,7 +303,7 @@ class CustomModuleController extends Controller
         $zipName = $this->getZipName($filePath);
 
         // Extract the files to storage folder first for checking the right plugin
-        // Filename Like codecanyon-0gOuGKoY-subdomain-module-for-tabletrack.zip
+        // Filename Like codecanyon-0gOuGKoY-subdomain-module-for-inqrrms.zip
         if (str_contains($zipName, 'codecanyon-')) {
             $zipName = $this->unzipCodecanyon($zip);
         } else {

@@ -20,7 +20,7 @@ class CorsMiddleware
             $response = response('', 200);
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-TABLETRACK-KEY');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-INQRRMS-KEY');
             $response->headers->set('Access-Control-Max-Age', '86400');
             return $response;
         }
@@ -28,7 +28,7 @@ class CorsMiddleware
         $response = $next($request);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-TABLETRACK-KEY');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-INQRRMS-KEY');
 
         return $response;
     }

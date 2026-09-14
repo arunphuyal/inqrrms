@@ -1,28 +1,16 @@
-# TableTrack
+# InQRRMS
 
 <p align="center">
   <h1 align="center">The Complete SaaS Restaurant Management Solution</h1>
 </p>
 
-<p align="center">
-  <a href="https://1.envato.market/tabletrack">
-    <img src="https://img.shields.io/badge/Buy%20on%20CodeCanyon-TableTrack-82B541?style=for-the-badge&logo=envato" alt="Buy on CodeCanyon">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://1.envato.market/tabletrack">
-    <strong>🚀 Get TableTrack Now →</strong>
-  </a>
-</p>
-
 ---
 
-## About TableTrack
+## About InQRRMS
 
-TableTrack is a comprehensive SaaS-based restaurant management solution that revolutionizes how restaurants operate. Built with **Laravel** and **Livewire**, it offers a modern, responsive interface for seamless restaurant management.
+InQRRMS is a comprehensive SaaS-based restaurant management solution that revolutionizes how restaurants operate. Built with **Laravel** and **Livewire**, it offers a modern, responsive interface for seamless restaurant management.
 
-Whether you're running a single restaurant or managing multiple locations, TableTrack provides all the tools you need to streamline operations, improve efficiency, and grow your business.
+Whether you're running a single restaurant or managing multiple locations, InQRRMS provides all the tools you need to streamline operations, improve efficiency, and grow your business.
 
 ## 🎯 Key Features
 
@@ -50,26 +38,27 @@ Whether you're running a single restaurant or managing multiple locations, Table
 ## 📋 Requirements
 
 -   PHP >= 8.2
--   MySQL >= 5.7 
+-   MySQL >= 5.7
 -   Composer
 -   Node.js & NPM
 -   Web Server (Apache/Nginx)
 
 ## 🚀 Installation
 
-1. Purchase and download TableTrack from [CodeCanyon](https://1.envato.market/tabletrack)
-2. Extract the files to your web server directory
-3. Follow the installation wizard in your browser
-4. Configure your database and settings
-5. Start managing your restaurant!
+1. Clone this repository to your web server directory
+2. Run `composer install` and `npm install`
+3. Copy `.env.example` to `.env` and configure your environment
+4. Follow the installation wizard in your browser
+5. Configure your database and settings
+6. Start managing your restaurant!
 
 ## 📖 Documentation
 
-Comprehensive documentation is included with your purchase. Check the `documentation/` folder for detailed setup and usage instructions.
+Comprehensive documentation is included with your installation. Check the `documentation/` folder for detailed setup and usage instructions.
 
 ## 🎨 Modules
 
-TableTrack comes with several powerful modules:
+InQRRMS comes with several powerful modules:
 
 -   **Backup Module** - Automated database backups
 -   **Cash Register Module** - Complete cash management system
@@ -81,30 +70,12 @@ TableTrack comes with several powerful modules:
 -   **SMS Module** - SMS notifications
 -   **Subdomain Module** - Multi-tenant subdomain support
 
-## 💰 Purchase
-
-Get TableTrack today and transform your restaurant operations:
-
-<p align="center">
-  <a href="https://1.envato.market/tabletrack" style="font-size: 18px; padding: 15px 30px; background-color: #82B541; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">
-    <strong>Buy TableTrack on CodeCanyon →</strong>
-  </a>
-</p>
-
-## 📞 Support
-
-For support, feature requests, or questions, please contact us through the CodeCanyon support system.
-
 ## 📄 License
 
-This is a commercial software. Please refer to your purchase license agreement for terms and conditions.
+This is proprietary software. Please refer to your license agreement for terms and conditions.
 
 ---
 
 <p align="center">
   Made with ❤️ for restaurant owners worldwide
-</p>
-
-<p align="center">
-  <a href="https://1.envato.market/tabletrack">Get TableTrack Now</a>
 </p>

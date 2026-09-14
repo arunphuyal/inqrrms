@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'TableTrack'),
+    'name' => env('APP_NAME', 'InQRRMS'),
     'main_application_subdomain' => env('MAIN_APPLICATION_SUBDOMAIN'),
     'main_domain_name' => env('MAIN_DOMAIN_NAME', null),
     'short_domain_name' => env('SHORT_DOMAIN_NAME', false),

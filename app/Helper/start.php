@@ -542,7 +542,7 @@ if (!function_exists('getDomain')) {
     function getDomain($host = false)
     {
         if (!$host) {
-            $host = $_SERVER['SERVER_NAME'] ?? 'tabletrack.test';
+            $host = $_SERVER['SERVER_NAME'] ?? 'inqrrms.test';
         }
 
         $shortDomain = config('app.short_domain_name');

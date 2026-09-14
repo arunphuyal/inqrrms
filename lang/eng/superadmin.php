@@ -51,7 +51,7 @@ return [
     'desktopAppRequired' => 'Desktop Printing App Required',
     'desktopAppRequiredDescription' => 'The Desktop Printing App is required for direct printing functionality. Users must download and install the desktop printing app to enable thermal printer support.',
     'desktopAppDemo' => 'Desktop Printing App Demo',
-    'desktopAppDemoDescription' => 'Watch how the TableTrack Desktop Printing App works',
+    'desktopAppDemoDescription' => 'Watch how the InQRRMS Desktop Printing App works',
     'desktopAppDemoLink' => 'https://www.youtube.com/watch?v=KKla4E_e_tY',
     'desktopAppDemoLinkText' => 'Watch Demo on YouTube',
 ];
