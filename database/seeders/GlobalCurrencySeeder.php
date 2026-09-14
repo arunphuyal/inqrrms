@@ -64,5 +64,17 @@ class GlobalCurrencySeeder extends Seeder
             'thousand_separator' => ',',
             'decimal_separator' => '.',
         ]);
+
+        GlobalCurrency::firstOrCreate([
+            'currency_code' => 'NPR'
+        ], [
+            'currency_name' => 'Nepalese Rupee',
+            'currency_symbol' => 'Rs',
+            'currency_code' => 'NPR',
+            'currency_position' => 'left',
+            'no_of_decimal' => 2,
+            'thousand_separator' => ',',
+            'decimal_separator' => '.',
+        ]);
     }
 }

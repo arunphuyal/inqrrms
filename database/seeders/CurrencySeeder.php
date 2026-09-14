@@ -64,6 +64,18 @@ class CurrencySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'currency_name' => 'Nepalese Rupee',
+                'currency_symbol' => 'Rs',
+                'currency_code' => 'NPR',
+                'restaurant_id' => $restaurant->id,
+                'currency_position' => 'left',
+                'no_of_decimal' => 2,
+                'thousand_separator' => ',',
+                'decimal_separator' => '.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         Currency::insert($currencies);
