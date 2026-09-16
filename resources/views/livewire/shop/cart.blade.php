@@ -1542,14 +1542,20 @@ app()->setLocale(session('customer_locale', app()->getLocale()));
                             <img src="{{ $paymentGateway->qr_code_image_url }}" alt="QR Code Preview"
                                 class="object-cover rounded-md h-30 w-30">
                         @elseif ($showPaymentDetail)
-                            @if ($activeOfflinePaymentMethod && !empty($activeOfflinePaymentMethod->description))
+                            @if ($activeOfflinePaymentMethod && (!empty($activeOfflinePaymentMethod->description) || !empty($activeOfflinePaymentMethod->qr_code_image_url)))
                                 <div class="w-full p-3 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-700">
                                     <p class="text-sm font-medium text-gray-900 dark:text-white">
                                         {{ ucwords(str_replace('_', ' ', $activeOfflinePaymentMethod->name)) }}
                                     </p>
-                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 whitespace-pre-line break-words">
-                                        {!! nl2br(e($activeOfflinePaymentMethod->description)) !!}
-                                    </p>
+                                    @if (!empty($activeOfflinePaymentMethod->qr_code_image_url))
+                                        <img src="{{ $activeOfflinePaymentMethod->qr_code_image_url }}" alt="QR Code"
+                                            class="object-cover mt-2 rounded-md h-30 w-30">
+                                    @endif
+                                    @if (!empty($activeOfflinePaymentMethod->description))
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 whitespace-pre-line break-words">
+                                            {!! nl2br(e($activeOfflinePaymentMethod->description)) !!}
+                                        </p>
+                                    @endif
                                 </div>
                             @else
                                 <div class="w-full p-3 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-700">

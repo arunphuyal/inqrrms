@@ -2,14 +2,16 @@
 
 namespace App\Livewire\OfflinePayment;
 
+use App\Helper\Files;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 use App\Models\OfflinePaymentMethod;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OfflinePaymentMethodTab extends Component
 {
-    use WithPagination, LivewireAlert;
+    use WithPagination, LivewireAlert, WithFileUploads;
 
     public $name;
     public $description;
@@ -18,12 +20,16 @@ class OfflinePaymentMethodTab extends Component
     public $showPaymentMethodForm = false;
     public $confirmDeleteModal = false;
     public $deleteId;
+    public $qrCodeImage;
+    public $existingQrCodeImage;
+    public $removeQrCode = false;
 
     protected function rules()
     {
         $rules = [
             'description' => 'nullable|string|max:1000',
             'status' => 'required|in:active,inactive',
+            'qrCodeImage' => 'nullable|image|max:1024',
         ];
 
         // Name is only required for new methods or non-system methods
@@ -50,17 +56,25 @@ class OfflinePaymentMethodTab extends Component
 
         if ($this->methodId) {
             $method = OfflinePaymentMethod::where('id', $this->methodId)->where('restaurant_id', $restaurantId)->firstOrFail();
-            
+
             // For cash and bank_transfer, preserve the original name and only update description and status
             if (in_array($method->name, ['cash', 'bank_transfer'])) {
                 $updateData = ['description' => $this->description, 'status' => $this->status];
             } else {
                 $updateData = ['name' => $this->name, 'description' => $this->description, 'status' => $this->status];
             }
-            
+
+            $updateData['qr_code_image'] = $this->resolveQrCodeImage($method->qr_code_image);
+
             $method->update($updateData);
         } else {
-            $updateData = ['name' => $this->name, 'description' => $this->description, 'status' => $this->status, 'restaurant_id' => $restaurantId];
+            $updateData = [
+                'name' => $this->name,
+                'description' => $this->description,
+                'status' => $this->status,
+                'restaurant_id' => $restaurantId,
+                'qr_code_image' => $this->resolveQrCodeImage(null),
+            ];
             OfflinePaymentMethod::create($updateData);
         }
 
@@ -71,6 +85,35 @@ class OfflinePaymentMethodTab extends Component
         $this->dispatch('offlinePaymentMethodUpdated');
 
         $this->resetForm();
+    }
+
+    /**
+     * Upload the newly selected QR code, honor a removal request, or keep the
+     * existing image, then return the filename to persist.
+     */
+    private function resolveQrCodeImage(?string $currentImage): ?string
+    {
+        if (is_object($this->qrCodeImage) && $this->qrCodeImage->isValid()) {
+            if ($currentImage) {
+                Files::deleteFile($currentImage, OfflinePaymentMethod::QR_CODE_FOLDER);
+            }
+
+            return Files::uploadLocalOrS3($this->qrCodeImage, OfflinePaymentMethod::QR_CODE_FOLDER, width: 800);
+        }
+
+        if ($this->removeQrCode && $currentImage) {
+            Files::deleteFile($currentImage, OfflinePaymentMethod::QR_CODE_FOLDER);
+            return null;
+        }
+
+        return $currentImage;
+    }
+
+    public function removeQrCodeImage()
+    {
+        $this->qrCodeImage = null;
+        $this->existingQrCodeImage = null;
+        $this->removeQrCode = true;
     }
 
 
@@ -89,6 +132,9 @@ class OfflinePaymentMethodTab extends Component
         $this->name = $paymentMethod->name;
         $this->description = $paymentMethod->description;
         $this->status = $paymentMethod->status;
+        $this->existingQrCodeImage = $paymentMethod->qr_code_image_url ?: null;
+        $this->qrCodeImage = null;
+        $this->removeQrCode = false;
         $this->showPaymentMethodForm = true;
     }
 
@@ -115,6 +161,11 @@ class OfflinePaymentMethodTab extends Component
     {
         $restaurantId = restaurant() ? restaurant()->id : null;
         $method = OfflinePaymentMethod::where('id', $this->deleteId)->where('restaurant_id', $restaurantId)->firstOrFail();
+
+        if ($method->qr_code_image) {
+            Files::deleteFile($method->qr_code_image, OfflinePaymentMethod::QR_CODE_FOLDER);
+        }
+
         $method->delete();
         
         $this->alert('success', __('messages.offlinePaymentMethodDeleted'), [
@@ -132,6 +183,9 @@ class OfflinePaymentMethodTab extends Component
         $this->methodId = null;
         $this->name = $this->description = '';
         $this->status = 'active';
+        $this->qrCodeImage = null;
+        $this->existingQrCodeImage = null;
+        $this->removeQrCode = false;
         $this->showPaymentMethodForm = false;
     }
 
