@@ -13,6 +13,7 @@ return array(
     'kitchens' => 'Kitchens',
     'kitchenSettings' => 'Kitchen Settings',
     'allKitchenKots' => 'All Kitchen KOTs',
+    'kitchenDisplay' => 'Kitchen Display',
     'menu' => 'Menu',
     'menus' => 'Menus',
     'menuItem' => 'Menu Items',

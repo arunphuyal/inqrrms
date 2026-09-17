@@ -205,6 +205,7 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified', VerifyR
 
     Route::resource('kots', KotController::class);
     Route::get('kot/print/{id}/{kotPlaceid?}', [KotController::class, 'printkot'])->name('kot.print');
+    Route::get('kot/display', [KotController::class, 'display'])->name('kot.display');
 
     Route::resource('customers', CustomerController::class);
 
