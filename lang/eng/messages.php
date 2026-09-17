@@ -61,6 +61,7 @@ return array(
     'cannotDeleteDefaultCurrency' => 'Cannot Delete Default Currency.',
     'taxApplicableInfo' => 'All taxes will be applicable on creating order.',
     'taxDeleted' => 'Tax deleted successfully.',
+    'cbmsRetryQueued' => 'Submission to CBMS has been queued for retry.',
     'chooseEndTimeLater' => 'Choose and end time later than the start time.',
     'frontReservationHeading' => 'Book a Table and Savor the Experience.',
     'selectBookingDetail' => 'Select your booking details',

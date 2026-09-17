@@ -30,6 +30,19 @@
                         @lang('modules.settings.taxTable')
                     </span>
                 </li>
+
+                <li class="me-2">
+                    <span wire:click="$set('activeTab', 'cbms')" @class([
+                        'inline-flex items-center gap-x-1 cursor-pointer select-none p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
+                        'border-transparent' => $activeTab != 'cbms',
+                        'active border-skin-base dark:text-skin-base dark:border-skin-base text-skin-base' => $activeTab == 'cbms',
+                    ])>
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        @lang('modules.settings.cbmsTab')
+                    </span>
+                </li>
             </ul>
         </div>
 
@@ -243,6 +256,147 @@
                             </table>
 
                         </div>
+                    </div>
+                </div>
+            </div>
+
+        @elseif($activeTab === 'cbms')
+            <div class="mt-6 space-y-6">
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-4 space-y-4">
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white">@lang('modules.settings.cbmsSettingsTitle')</h4>
+                        <x-help-text>@lang('modules.settings.cbmsSettingsDescription')</x-help-text>
+
+                        <form wire:submit="saveCbmsSettings" class="space-y-4">
+                            <div class="flex items-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <label for="cbmsEnabled" class="flex items-center space-x-2">
+                                    <x-checkbox name="cbmsEnabled" id="cbmsEnabled" wire:model="cbmsEnabled" />
+                                    <span>
+                                        <span class="font-medium text-gray-900 dark:text-white">@lang('modules.settings.cbmsEnable')</span>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsEnableHelp')</p>
+                                    </span>
+                                </label>
+                            </div>
+
+                            @if ($cbmsEnabled)
+                                <div>
+                                    <x-label for="cbmsMode" value="{{ __('modules.settings.cbmsMode') }}" />
+                                    <x-select id="cbmsMode" class="mt-1 block w-full" wire:model="cbmsMode">
+                                        <option value="test">{{ __('modules.settings.cbmsModeTest') }}</option>
+                                        <option value="live">{{ __('modules.settings.cbmsModeLive') }}</option>
+                                    </x-select>
+                                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsModeHelp')</p>
+                                    <x-input-error for="cbmsMode" class="mt-2" />
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <x-label for="cbmsUsername" value="{{ __('modules.settings.cbmsUsername') }}" />
+                                        <x-input id="cbmsUsername" type="text" class="block mt-1 w-full" wire:model="cbmsUsername" placeholder="Test_CBMS" autocomplete="off" />
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsUsernameHelp')</p>
+                                        <x-input-error for="cbmsUsername" class="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <x-label for="cbmsPassword" value="{{ __('modules.settings.cbmsPassword') }}" />
+                                        <x-input id="cbmsPassword" type="password" class="block mt-1 w-full" wire:model="cbmsPassword" placeholder="••••••••" autocomplete="new-password" />
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsPasswordHelp')</p>
+                                        <x-input-error for="cbmsPassword" class="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <x-label for="cbmsSellerPanOverride" value="{{ __('modules.settings.cbmsSellerPan') }}" />
+                                        <x-input id="cbmsSellerPanOverride" type="text" class="block mt-1 w-full" wire:model="cbmsSellerPanOverride" placeholder="999999999" />
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsSellerPanHelp')</p>
+                                        <x-input-error for="cbmsSellerPanOverride" class="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <x-label for="cbmsFiscalYear" value="{{ __('modules.settings.cbmsFiscalYear') }}" />
+                                        <x-input id="cbmsFiscalYear" type="text" class="block mt-1 w-full" wire:model="cbmsFiscalYear" placeholder="2082.083" />
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">@lang('modules.settings.cbmsFiscalYearHelp')</p>
+                                        <x-input-error for="cbmsFiscalYear" class="mt-2" />
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div>
+                                <x-button type="submit" wire:loading.attr="disabled" wire:target="saveCbmsSettings">
+                                    @lang('app.save')
+                                </x-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-4">
+                        <h4 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">@lang('modules.settings.cbmsLogsTitle')</h4>
+
+                        <div class="overflow-x-auto">
+                            <div class="inline-block min-w-full align-middle">
+                                <div class="overflow-hidden shadow">
+                                    <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+                                        <thead class="bg-gray-100 dark:bg-gray-700">
+                                            <tr>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">@lang('modules.settings.cbmsLogOrder')</th>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">@lang('modules.settings.cbmsLogType')</th>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">@lang('modules.settings.cbmsLogStatus')</th>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">@lang('modules.settings.cbmsLogResponse')</th>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">@lang('modules.settings.cbmsLogSubmittedAt')</th>
+                                                <th scope="col" class="py-2.5 px-4 text-xs font-medium text-gray-500 uppercase dark:text-gray-400 text-right">@lang('app.action')</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                            @forelse ($cbmsLogs as $log)
+                                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700" wire:key="cbms-log-{{ $log->id }}">
+                                                    <td class="py-2.5 px-4 text-sm text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $log->order?->show_formatted_order_number ?? ('#' . $log->order_id) }}
+                                                    </td>
+                                                    <td class="py-2.5 px-4 text-sm text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $log->type === 'bill' ? __('modules.settings.cbmsLogTypeBill') : __('modules.settings.cbmsLogTypeCreditNote') }}
+                                                    </td>
+                                                    <td class="py-2.5 px-4 text-sm whitespace-nowrap">
+                                                        @if ($log->status === 'success')
+                                                            <span class="bg-green-100 uppercase text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $log->status }}</span>
+                                                        @elseif ($log->status === 'failed')
+                                                            <span class="bg-red-100 uppercase text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $log->status }}</span>
+                                                        @else
+                                                            <span class="bg-yellow-100 uppercase text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $log->status }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="py-2.5 px-4 text-sm text-gray-900 dark:text-white max-w-xs truncate" title="{{ $log->response_message }}">
+                                                        {{ $log->response_code }} {{ $log->response_message ? '- ' . str($log->response_message)->limit(60) : '' }}
+                                                    </td>
+                                                    <td class="py-2.5 px-4 text-sm text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $log->submitted_at?->format('Y-m-d H:i') ?? '--' }}
+                                                    </td>
+                                                    <td class="py-2.5 px-4 space-x-2 whitespace-nowrap text-right">
+                                                        @if ($log->status === 'failed')
+                                                            <x-secondary-button-table wire:click="retryCbmsSubmission({{ $log->id }})" wire:key="cbms-retry-{{ $log->id }}">
+                                                                @lang('modules.settings.cbmsRetry')
+                                                            </x-secondary-button-table>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td class="py-2.5 px-4" colspan="6">
+                                                        @lang('modules.settings.cbmsLogsEmpty')
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (method_exists($cbmsLogs, 'links'))
+                            <div class="mt-4">
+                                {{ $cbmsLogs->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

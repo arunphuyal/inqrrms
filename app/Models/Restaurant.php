@@ -105,6 +105,11 @@ class Restaurant extends BaseModel
         return $this->hasMany(OfflinePaymentMethod::class);
     }
 
+    public function cbmsSetting(): HasOne
+    {
+        return $this->hasOne(CbmsSetting::class);
+    }
+
     public function restaurantPayment(): HasMany
     {
         return $this->hasMany(RestaurantPayment::class)->where('status', 'paid  ')->orderByDesc('id');

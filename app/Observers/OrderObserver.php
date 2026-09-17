@@ -10,6 +10,8 @@ use App\Models\Kot;
 use App\Events\OrderUpdated;
 use App\Events\OrderSuccessEvent;
 use App\Events\NewOrderCreated;
+use App\Jobs\PostOrderToCbmsJob;
+use App\Jobs\PostCreditNoteToCbmsJob;
 
 
 class OrderObserver
@@ -67,6 +69,14 @@ class OrderObserver
 
         if ($order->isDirty('status') && $order->status == 'canceled') {
             OrderCancelled::dispatch($order);
+
+            if ($order->cbms_status === 'synced') {
+                PostCreditNoteToCbmsJob::dispatch($order->id, (string) ($order->cancel_reason_text ?? ''));
+            }
+        }
+
+        if ($order->isDirty('status') && $order->status === 'paid') {
+            PostOrderToCbmsJob::dispatch($order->id);
         }
 
         if ($order->wasChanged('order_status')) {

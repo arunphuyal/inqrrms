@@ -46,4 +46,26 @@ return [
         'model' => env('OPENAI_MODEL', 'gpt-4o'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | IRD Central Billing Monitoring System (CBMS) - Nepal
+    |--------------------------------------------------------------------------
+    |
+    | Endpoints as published in the IRD "Central Billing Monitoring System
+    | API Documentation" (updated 2079 Ashoj 28 / 2022-10-14). Credentials
+    | and the seller PAN are configured per restaurant (see CbmsSetting),
+    | not here - these are only the fixed service URLs.
+    |
+    */
+    'cbms' => [
+        'bill_url' => env('CBMS_BILL_URL', 'https://cbapi.ird.gov.np/api/bill'),
+        'bill_return_url' => env('CBMS_BILL_RETURN_URL', 'https://cbapi.ird.gov.np/api/billreturn'),
+
+        // Class implementing App\Services\Cbms\Contracts\NepaliDateConverter,
+        // used to render invoice_date / credit_note_date as the BS calendar
+        // string CBMS expects. See UnavailableNepaliDateConverter for why
+        // this isn't a working implementation out of the box.
+        'date_converter' => env('CBMS_DATE_CONVERTER', \App\Services\Cbms\UnavailableNepaliDateConverter::class),
+    ],
+
 ];

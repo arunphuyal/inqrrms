@@ -30,6 +30,7 @@ class Order extends BaseModel
         'order_status' => OrderStatus::class,
         'cancel_time' => 'datetime',
         'pickup_date' => 'datetime',
+        'cbms_synced_at' => 'datetime',
     ];
 
     protected static function boot()
@@ -78,6 +79,11 @@ class Order extends BaseModel
     public function taxes(): HasMany
     {
         return $this->hasMany(OrderTax::class);
+    }
+
+    public function cbmsLogs(): HasMany
+    {
+        return $this->hasMany(CbmsLog::class);
     }
 
     public function charges(): HasMany
