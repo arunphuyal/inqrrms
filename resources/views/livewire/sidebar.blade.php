@@ -182,6 +182,48 @@
                             @endif
                         @endif
 
+                        @if ($this->hasModule('Cash Register'))
+                            @if (user_can('Show Cash Register Dashboard') || user_can('Manage Cash Register') || user_can('Show Cash Register Reports') || user_can('Manage Cash Register Approvals') || user_can('Manage Cash Register Settings'))
+                                <x-sidebar-dropdown-menu :name='__("menu.cashRegister")' icon='cash' :active='request()->routeIs("cash-register.*")'>
+                                    @if (user_can('Show Cash Register Dashboard'))
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.registerDashboard'), 'link' => route('cash-register.dashboard'), 'active' => request()->routeIs('cash-register.dashboard')])
+                                    @endif
+                                    @if (user_can('Manage Cash Register'))
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.cashRegister'), 'link' => route('cash-register.operate'), 'active' => request()->routeIs('cash-register.operate')])
+                                    @endif
+                                    @if (user_can('Show Cash Register Reports'))
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.cashRegisterReports'), 'link' => route('cash-register.reports'), 'active' => request()->routeIs('cash-register.reports')])
+                                    @endif
+                                    @if (user_can('Manage Cash Register Approvals'))
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.cashRegisterApprovals'), 'link' => route('cash-register.approvals'), 'active' => request()->routeIs('cash-register.approvals')])
+                                    @endif
+                                    @if (user_can('Manage Cash Register Settings'))
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.cashRegisterDenominations'), 'link' => route('cash-register.denominations'), 'active' => request()->routeIs('cash-register.denominations')])
+                                        @livewire('sidebar-dropdown-menu', ['name' => __('menu.cashRegisterSettings'), 'link' => route('cash-register.settings'), 'active' => request()->routeIs('cash-register.settings')])
+                                    @endif
+                                </x-sidebar-dropdown-menu>
+                            @endif
+                        @endif
+
+                        @if ($this->hasModule('Hotel') && user_can('Show Hotel'))
+                            @livewire('sidebar-menu-item', ['name' => __('menu.hotel'), 'icon' => 'hotel', 'link' => route('hotel.index'), 'active' => request()->routeIs('hotel.index')])
+                        @endif
+
+                        @if ($this->hasModule('Inventory') && user_can('Show Inventory'))
+                            @livewire('sidebar-menu-item', ['name' => __('menu.inventory'), 'icon' => 'stock', 'link' => route('inventory.index'), 'active' => request()->routeIs('inventory.index')])
+                        @endif
+
+                        @if (($this->hasModule('Kitchens') && user_can('Show Kitchens')) || ($this->hasModule('KOT') && user_can('Manage KOT')))
+                            <x-sidebar-dropdown-menu :name='__("menu.kitchens")' icon='kitchen' :active='request()->routeIs(["kots.*"]) || (request()->routeIs("settings.index") && request()->query("tab") === "kotSettings")'>
+                                @if ($this->hasModule('Kitchens') && user_can('Show Kitchens') && user_can('Manage Settings'))
+                                    @livewire('sidebar-dropdown-menu', ['name' => __('menu.kitchenSettings'), 'link' => route('settings.index', ['tab' => 'kotSettings']), 'active' => request()->routeIs('settings.index') && request()->query('tab') === 'kotSettings'])
+                                @endif
+                                @if ($this->hasModule('KOT') && user_can('Manage KOT'))
+                                    @livewire('sidebar-dropdown-menu', ['name' => __('menu.allKitchenKots'), 'link' => route('kots.index'), 'active' => request()->routeIs('kots.*')])
+                                @endif
+                            </x-sidebar-dropdown-menu>
+                        @endif
+
                         @foreach (custom_module_plugins() as $item)
                             @includeIf(strtolower($item) . '::sections.sidebar')
                         @endforeach

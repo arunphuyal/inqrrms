@@ -2,6 +2,17 @@
 
 return array(
     'dashboard' => 'Dashboard',
+    'cashRegister' => 'Cash Register',
+    'registerDashboard' => 'Register Dashboard',
+    'cashRegisterReports' => 'Reports',
+    'cashRegisterApprovals' => 'Approvals',
+    'cashRegisterDenominations' => 'Denominations',
+    'cashRegisterSettings' => 'Register Settings',
+    'hotel' => 'Hotel',
+    'inventory' => 'Inventory',
+    'kitchens' => 'Kitchens',
+    'kitchenSettings' => 'Kitchen Settings',
+    'allKitchenKots' => 'All Kitchen KOTs',
     'menu' => 'Menu',
     'menus' => 'Menus',
     'menuItem' => 'Menu Items',

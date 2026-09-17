@@ -74,6 +74,9 @@ use App\Http\Controllers\SuperAdmin\PaystackWebhookController;
 use App\Http\Controllers\SuperAdmin\RazorpayWebhookController;
 use App\Http\Controllers\SuperAdmin\FlutterwaveWebhookController;
 use App\Http\Middleware\EnsureDeliveryExecutiveAuthenticated;
+use App\Http\Controllers\CashRegisterController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\InventoryController;
 
 Route::get('/manifest.json', [HomeController::class, 'manifest'])->name('manifest');
 
@@ -251,6 +254,18 @@ Route::middleware(['auth', config('jetstream.auth_session'), 'verified', VerifyR
 
     Route::get('/customer-display', [\App\Http\Controllers\PosController::class, 'customerDisplay'])->name('customer.display');
     Route::get('/customer-order-board', [\App\Http\Controllers\PosController::class, 'customerOrderBoard'])->name('customer.order-board');
+
+    Route::prefix('cash-register')->name('cash-register.')->group(function () {
+        Route::get('dashboard', [CashRegisterController::class, 'dashboard'])->name('dashboard');
+        Route::get('operate', [CashRegisterController::class, 'operate'])->name('operate');
+        Route::get('reports', [CashRegisterController::class, 'reports'])->name('reports');
+        Route::get('approvals', [CashRegisterController::class, 'approvals'])->name('approvals');
+        Route::get('denominations', [CashRegisterController::class, 'denominations'])->name('denominations');
+        Route::get('settings', [CashRegisterController::class, 'settings'])->name('settings');
+    });
+
+    Route::get('hotel', [HotelController::class, 'index'])->name('hotel.index');
+    Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
 });
 
 Route::middleware(['auth', config('jetstream.auth_session'), 'verified', SuperAdmin::class])->group(function () {

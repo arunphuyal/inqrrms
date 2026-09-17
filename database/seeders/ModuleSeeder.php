@@ -42,6 +42,10 @@ class ModuleSeeder extends Seeder
             ['name' => 'Expense', 'is_superadmin' => 0],
             ['name' => 'Payment', 'is_superadmin' => 0],
             ['name' => 'Settings', 'is_superadmin' => 0],
+            ['name' => 'Cash Register', 'is_superadmin' => 0],
+            ['name' => 'Hotel', 'is_superadmin' => 0],
+            ['name' => 'Inventory', 'is_superadmin' => 0],
+            ['name' => 'Kitchens', 'is_superadmin' => 0],
         ];
 
         // Create modules if missing, and also ensure is_superadmin is correct if module already exists.
