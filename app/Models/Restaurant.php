@@ -105,6 +105,16 @@ class Restaurant extends BaseModel
         return $this->hasMany(OfflinePaymentMethod::class);
     }
 
+    public function cashRegisters(): HasMany
+    {
+        return $this->hasMany(CashRegister::class)->withoutGlobalScopes();
+    }
+
+    public function cashRegisterSetting(): HasOne
+    {
+        return $this->hasOne(CashRegisterSetting::class);
+    }
+
     public function cbmsSetting(): HasOne
     {
         return $this->hasOne(CbmsSetting::class);

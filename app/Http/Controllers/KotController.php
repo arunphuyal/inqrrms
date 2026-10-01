@@ -20,6 +20,19 @@ class KotController extends Controller
         return view('kot.index');
     }
 
+    /**
+     * Full-screen Kitchen Display - the same live KOT board as index(),
+     * without the admin sidebar/nav chrome, meant to be left running on a
+     * kitchen-mounted screen. Mirrors the Customer Display / Order Board
+     * pattern (layouts.public).
+     */
+    public function display()
+    {
+        abort_if(!in_array('KOT', restaurant_modules()), 303);
+        abort_if((!user_can('Manage KOT')), 303);
+        return view('kot.display');
+    }
+
     public function printKot($id, $kotPlaceid = null, $width = 80, $thermal = false, $forPdf = false)
     {
         $kot = Kot::with('items', 'order.waiter', 'table')->find($id);

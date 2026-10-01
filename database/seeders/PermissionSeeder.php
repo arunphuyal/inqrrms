@@ -43,6 +43,10 @@ class PermissionSeeder extends Seeder
         $deliveryExecutiveModule = Module::where('name', 'Delivery Executive')->where('is_superadmin', 0)->first();
         $waiterRequestModule = Module::where('name', 'Waiter Request')->where('is_superadmin', 0)->first();
         $expenseModule = Module::where('name', 'Expense')->where('is_superadmin', 0)->first();
+        $cashRegisterModule = Module::where('name', 'Cash Register')->where('is_superadmin', 0)->first();
+        $hotelModule = Module::where('name', 'Hotel')->where('is_superadmin', 0)->first();
+        $inventoryModule = Module::where('name', 'Inventory')->where('is_superadmin', 0)->first();
+        $kitchensModule = Module::where('name', 'Kitchens')->where('is_superadmin', 0)->first();
 
         // Define permissions to insert
         $permissions = [
@@ -146,6 +150,18 @@ class PermissionSeeder extends Seeder
             ['guard_name' => 'web', 'name' => 'Show Expense Category', 'module_id' => $expenseModule->id],
             ['guard_name' => 'web', 'name' => 'Update Expense Category', 'module_id' => $expenseModule->id],
             ['guard_name' => 'web', 'name' => 'Delete Expense Category', 'module_id' => $expenseModule->id],
+
+            ['guard_name' => 'web', 'name' => 'Show Cash Register Dashboard', 'module_id' => $cashRegisterModule->id],
+            ['guard_name' => 'web', 'name' => 'Manage Cash Register', 'module_id' => $cashRegisterModule->id],
+            ['guard_name' => 'web', 'name' => 'Show Cash Register Reports', 'module_id' => $cashRegisterModule->id],
+            ['guard_name' => 'web', 'name' => 'Manage Cash Register Approvals', 'module_id' => $cashRegisterModule->id],
+            ['guard_name' => 'web', 'name' => 'Manage Cash Register Settings', 'module_id' => $cashRegisterModule->id],
+
+            ['guard_name' => 'web', 'name' => 'Show Hotel', 'module_id' => $hotelModule->id],
+
+            ['guard_name' => 'web', 'name' => 'Show Inventory', 'module_id' => $inventoryModule->id],
+
+            ['guard_name' => 'web', 'name' => 'Show Kitchens', 'module_id' => $kitchensModule->id],
 
         ];
 
